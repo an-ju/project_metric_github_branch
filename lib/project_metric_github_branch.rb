@@ -65,7 +65,7 @@ class ProjectMetricGithubBranch
   def working_branches
     open_pr = @pulls.select { |pr| pr[:state].eql? 'open' }
                   .map { |pr| pr[:head][:sha] }
-    open_branches.reject { |br| open_pr.include? br[:commit][:sha] }
+    open_branches.reject { |br| open_pr.include? br[:commit][:sha] || br[:name].eql?(@main_branch) }
   end
 
   def open_branches
