@@ -8,7 +8,7 @@ RSpec.describe ProjectMetricGithubBranch do
   context 'image and score' do
     subject(:metric) do
       credentials = {github_project: 'https://github.com/an-ju/teamscope', github_token: 'test token'}
-      raw_data = File.read 'spec/data/pulls_branches.json'
+      raw_data = JSON.parse(File.read 'spec/data/pulls_branches.json')
       described_class.new(credentials, raw_data)
     end
 
@@ -18,14 +18,14 @@ RSpec.describe ProjectMetricGithubBranch do
 
     it 'should set image correctly' do
       expect(metric.image).not_to be_nil
-      expect(JSON.parse(metric.image)).to have_key('data')
+      expect(metric.image).to have_key(:data)
     end
 
     it 'should set image contents correctly' do
-      image = JSON.parse(metric.image)
-      expect(image['data']).to have_key('working_branches')
-      expect(image['data']).to have_key('standing_branches')
-      expect(image['data']).to have_key('legacy_branches')
+      image = metric.image
+      expect(image[:data]).to have_key(:working_branches)
+      expect(image[:data]).to have_key(:standing_branches)
+      expect(image[:data]).to have_key(:legacy_branches)
     end
 
   end

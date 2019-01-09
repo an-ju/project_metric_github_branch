@@ -10,7 +10,7 @@ class ProjectMetricGithubBranch
                        working_branches: Array.new(working) { branch },
                        legacy_branches: Array.new(legacy) { branch }
                }
-      }.to_json
+      }
     }
 
   end
